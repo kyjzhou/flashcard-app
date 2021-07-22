@@ -9,8 +9,11 @@ hand-writing their own flashcards.
 
 ### User Stories
 
-- As a user, I want to be able to add a flashcard to my existing collection of cards
-- As a user, I want to be able to edit a flashcard's cue and answer
-- As a user, I want to be able to remove a flashcard from my collection when no longer needed
-- As a user, I want to be able to input a guess to a flashcard's answer
-- As a user, I want to be able to receive feedback on the correctness of a guess to a flashcard answer
+- As a user, I want to be able to create a new collection of flashcards and add it to a list of collections
+- As a user, I want to be able to create a new flashcard and add it to a collection of cards
+- As a user, I want to be able to edit a flashcard's description or keyword
+- As a user, I want to be able to edit a collection's title
+- As a user, I want to be able to view a list of all collection titles
+- As a user, I want to be able to select a flashcard in a collection and view its description or keyword
+- As a user, I want to be able to delete a flashcard from a collection
+- As a user, I want to be able to delete a collection from the list of collections
