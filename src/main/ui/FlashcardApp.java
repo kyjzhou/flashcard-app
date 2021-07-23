@@ -6,6 +6,7 @@ import model.FlashcardCollection;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+// An app for generating flashcards
 public class FlashcardApp {
 
     private static final String QUIT_INSTRUCTION = "To quit, enter q";
@@ -15,7 +16,7 @@ public class FlashcardApp {
     private Scanner userInput;
     private FlashcardCollection collection;
 
-    // EFFECTS: executes the flashcard app
+    // EFFECTS: constructs and runs the flashcard app
     public FlashcardApp() {
         userInput = new Scanner(System.in);
         collection = new FlashcardCollection();
@@ -68,15 +69,15 @@ public class FlashcardApp {
             Flashcard flashcard = collection.getFlashcardAtPosition(cardPositionResponse);
             processSelectFlashcard(flashcard);
         } catch (InputMismatchException | IndexOutOfBoundsException exception) {
-            String responseToIgnore = userInput.nextLine();
-            System.out.println("Returning to the main menu...");
+            String userResponseToIgnore = userInput.nextLine();
+            System.out.println("You are at the main menu");
         }
     }
 
     // REQUIRES: selectedFlashcard must be in collection
     // EFFECTS: processes user actions when selecting a flashcard
     private void processSelectFlashcard(Flashcard selectedFlashcard) {
-        String ignorePreviousResponse = userInput.nextLine();
+        String previousUserResponseToIgnore = userInput.nextLine();
         while (true) {
             printSelectedFlashcardInstructions();
             String userResponse = userInput.nextLine();
@@ -96,8 +97,7 @@ public class FlashcardApp {
         }
     }
 
-    // REQUIRES: flashcard must be in collection
-    //           command must equal "vd" or "vk"
+    // REQUIRES: flashcard must be in collection; command must equal "vd" or "vk"
     // EFFECTS: processes user actions when viewing a flashcard's keyword or description
     private void processViewFlashcard(Flashcard flashcard, String command) {
         if (command.equals("vd")) {
@@ -107,8 +107,7 @@ public class FlashcardApp {
         }
     }
 
-    // REQUIRES: flashcard must be in collection
-    //           command must equal "ed" or "ek"
+    // REQUIRES: flashcard must be in collection; command must equal "ed" or "ek"
     // MODIFIES: this
     // EFFECTS: processes user actions when editing a flashcard's keyword or description
     private void processEditFlashcard(Flashcard flashcard, String command) {

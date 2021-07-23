@@ -3,19 +3,15 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class FlashcardCollectionTest {
 
     private FlashcardCollection testCollection;
-    private List<Flashcard> testFlashcards;
 
     @BeforeEach
     public void runBefore() {
         testCollection = new FlashcardCollection();
-        testFlashcards = testCollection.getFlashcards();
     }
 
     @Test
@@ -26,125 +22,97 @@ class FlashcardCollectionTest {
     @Test
     public void testAddOneFlashcardNotAlreadyInCollection() {
         Flashcard flashcardA = new Flashcard("Normal force", "Perpendicular force from surface");
-        assertTrue(testCollection.addFlashcard(flashcardA));
-        assertEquals(1, testCollection.getSize());
-        assertEquals(flashcardA, testCollection.getFlashcardAtPosition(1));
+        checkCanAddFirstFlashcard(flashcardA);
     }
 
     @Test
     public void testAddOneFlashcardAlreadyInCollection() {
         Flashcard flashcardA = new Flashcard("Gravity", "Force of attraction between objects");
-        assertTrue(testCollection.addFlashcard(flashcardA));
-        assertEquals(1, testCollection.getSize());
-        assertEquals(flashcardA, testCollection.getFlashcardAtPosition(1));
-
-        assertFalse(testCollection.addFlashcard(flashcardA));
-        assertEquals(1, testCollection.getSize());
-        assertEquals(flashcardA, testCollection.getFlashcardAtPosition(1));
+        checkCanAddFirstFlashcard(flashcardA);
+        checkCannotAddFlashcardAgain(flashcardA, 1, 1);
     }
 
     @Test
     public void testAddManyFlashcardsNotAlreadyInCollection() {
         Flashcard flashcardA = new Flashcard("Normal force", "Perpendicular force from surface");
         Flashcard flashcardB = new Flashcard("Friction", "Opposing force on an object");
-        assertTrue(testCollection.addFlashcard(flashcardA));
-        assertTrue(testCollection.addFlashcard(flashcardB));
-        assertEquals(2, testCollection.getSize());
-        assertEquals(flashcardA, testCollection.getFlashcardAtPosition(1));
-        assertEquals(flashcardB, testCollection.getFlashcardAtPosition(2));
+        checkCanAddFirstTwoFlashcards(flashcardA, flashcardB);
     }
 
     @Test
     public void testAddManyFlashcardsAlreadyInCollection() {
         Flashcard flashcardA = new Flashcard("Mass", "Quantity of matter");
         Flashcard flashcardB = new Flashcard("Weight", "Force of gravity on an object");
-        assertTrue(testCollection.addFlashcard(flashcardB));
-        assertTrue(testCollection.addFlashcard(flashcardA));
-        assertEquals(2, testCollection.getSize());
-        assertEquals(flashcardB, testCollection.getFlashcardAtPosition(1));
-        assertEquals(flashcardA, testCollection.getFlashcardAtPosition(2));
-
-        assertFalse(testCollection.addFlashcard(flashcardA));
-        assertEquals(2, testCollection.getSize());
-        assertEquals(flashcardA, testCollection.getFlashcardAtPosition(2));
-
-        Flashcard flashcardC = new Flashcard("Gravity", "Force of attraction between objects");
-        assertTrue(testCollection.addFlashcard(flashcardC));
-        assertEquals(3, testCollection.getSize());
-        assertEquals(flashcardC, testCollection.getFlashcardAtPosition(3));
-        assertEquals(flashcardA, testCollection.getFlashcardAtPosition(2));
-        assertEquals(flashcardB, testCollection.getFlashcardAtPosition(1));
-
-        assertFalse(testCollection.addFlashcard(flashcardB));
-        assertEquals(3, testCollection.getSize());
-        assertEquals(flashcardB, testCollection.getFlashcardAtPosition(1));
+        checkCanAddFirstTwoFlashcards(flashcardB, flashcardA);
+        checkCannotAddFlashcardAgain(flashcardA, 2, 2);
+        checkCannotAddFlashcardAgain(flashcardB, 2, 1);
     }
 
     @Test
     public void testDeleteOneFlashcardAlreadyInCollection() {
         Flashcard flashcardA = new Flashcard("Acceleration", "Change in speed over time");
-        assertTrue(testCollection.addFlashcard(flashcardA));
-        assertEquals(1, testCollection.getSize());
-        assertEquals(flashcardA, testCollection.getFlashcardAtPosition(1));
-
-        assertTrue(testCollection.deleteFlashcard(flashcardA));
-        assertEquals(0, testCollection.getSize());
+        checkCanAddFirstFlashcard(flashcardA);
+        checkCanDeleteFlashcard(flashcardA, 0);
     }
 
     @Test
     public void testDeleteOneFlashcardNotInCollection() {
         Flashcard flashcardA = new Flashcard("Acceleration", "Change in speed over time");
-        assertTrue(testCollection.addFlashcard(flashcardA));
-        assertEquals(1, testCollection.getSize());
-        assertEquals(flashcardA, testCollection.getFlashcardAtPosition(1));
-
-        assertTrue(testCollection.deleteFlashcard(flashcardA));
-        assertEquals(0, testCollection.getSize());
-
-        assertFalse(testCollection.deleteFlashcard(flashcardA));
-        assertEquals(0, testCollection.getSize());
+        checkCanAddFirstFlashcard(flashcardA);
+        checkCanDeleteFlashcard(flashcardA, 0);
+        checkCannotDeleteFlashcardAgain(flashcardA, 0);
     }
 
     @Test
     public void testDeleteManyFlashcardsAlreadyInCollection() {
         Flashcard flashcardA = new Flashcard("Acceleration", "Change in speed over time");
         Flashcard flashcardB = new Flashcard("Velocity", "Change in displacement over time");
-        assertTrue(testCollection.addFlashcard(flashcardA));
-        assertTrue(testCollection.addFlashcard(flashcardB));
-        assertEquals(2, testCollection.getSize());
-        assertEquals(flashcardA, testCollection.getFlashcardAtPosition(1));
-        assertEquals(flashcardB, testCollection.getFlashcardAtPosition(2));
-
-        assertTrue(testCollection.deleteFlashcard(flashcardA));
-        assertEquals(1, testCollection.getSize());
+        checkCanAddFirstTwoFlashcards(flashcardA, flashcardB);
+        checkCanDeleteFlashcard(flashcardA, 1);
         assertEquals(flashcardB, testCollection.getFlashcardAtPosition(1));
-
-        assertTrue(testCollection.deleteFlashcard(flashcardB));
-        assertEquals(0, testCollection.getSize());
+        checkCanDeleteFlashcard(flashcardB, 0);
     }
 
     @Test
     public void testDeleteManyFlashcardsNotInCollection() {
         Flashcard flashcardA = new Flashcard("Acceleration", "Change in speed over time");
         Flashcard flashcardB = new Flashcard("Velocity", "Change in displacement over time");
-        assertTrue(testCollection.addFlashcard(flashcardA));
-        assertTrue(testCollection.addFlashcard(flashcardB));
+        checkCanAddFirstTwoFlashcards(flashcardA, flashcardB);
+        checkCanDeleteFlashcard(flashcardA, 1);
+        assertEquals(flashcardB, testCollection.getFlashcardAtPosition(1));
+        checkCannotDeleteFlashcardAgain(flashcardA, 1);
+        assertEquals(flashcardB, testCollection.getFlashcardAtPosition(1));
+        checkCanDeleteFlashcard(flashcardB, 0);
+        checkCannotDeleteFlashcardAgain(flashcardB, 0);
+    }
+
+    private void checkCanAddFirstFlashcard(Flashcard flashcard) {
+        assertTrue(testCollection.addFlashcard(flashcard));
+        assertEquals(1, testCollection.getSize());
+        assertEquals(flashcard, testCollection.getFlashcardAtPosition(1));
+    }
+
+    private void checkCanAddFirstTwoFlashcards(Flashcard first, Flashcard second) {
+        assertTrue(testCollection.addFlashcard(first));
+        assertTrue(testCollection.addFlashcard(second));
         assertEquals(2, testCollection.getSize());
-        assertEquals(flashcardA, testCollection.getFlashcardAtPosition(1));
-        assertEquals(flashcardB, testCollection.getFlashcardAtPosition(2));
+        assertEquals(first, testCollection.getFlashcardAtPosition(1));
+        assertEquals(second, testCollection.getFlashcardAtPosition(2));
+    }
 
-        assertTrue(testCollection.deleteFlashcard(flashcardA));
-        assertEquals(1, testCollection.getSize());
-        assertEquals(flashcardB, testCollection.getFlashcardAtPosition(1));
+    private void checkCannotAddFlashcardAgain(Flashcard flashcard, int listSize, int cardPosition) {
+        assertFalse(testCollection.addFlashcard(flashcard));
+        assertEquals(listSize, testCollection.getSize());
+        assertEquals(flashcard, testCollection.getFlashcardAtPosition(cardPosition));
+    }
 
-        assertFalse(testCollection.deleteFlashcard(flashcardA));
-        assertEquals(1, testCollection.getSize());
-        assertEquals(flashcardB, testCollection.getFlashcardAtPosition(1));
+    private void checkCanDeleteFlashcard(Flashcard flashcard, int listSize) {
+        assertTrue(testCollection.deleteFlashcard(flashcard));
+        assertEquals(listSize, testCollection.getSize());
+    }
 
-        assertTrue(testCollection.deleteFlashcard(flashcardB));
-        assertEquals(0, testCollection.getSize());
-
-        assertFalse(testCollection.deleteFlashcard(flashcardB));
-        assertEquals(0, testCollection.getSize());
+    private void checkCannotDeleteFlashcardAgain(Flashcard flashcard, int listSize) {
+        assertFalse(testCollection.deleteFlashcard(flashcard));
+        assertEquals(listSize, testCollection.getSize());
     }
 }
