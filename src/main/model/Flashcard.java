@@ -6,9 +6,9 @@ public class Flashcard {
     private String keyword;
     private String description;
 
-    public Flashcard(String keyword) {
+    public Flashcard(String keyword, String description) {
         this.keyword = keyword;
-        description = "No description yet";
+        this.description = description;
     }
 
     // getter

@@ -6,17 +6,10 @@ import java.util.List;
 // Represents a collection of flashcards having a title and a list of flashcards
 public class FlashcardCollection {
 
-    private String title;
     private List<Flashcard> flashcards;
 
-    public FlashcardCollection(String title) {
-        this.title = title;
+    public FlashcardCollection() {
         flashcards = new ArrayList<>();
-    }
-
-    // getter
-    public String getTitle() {
-        return title;
     }
 
     // getter
@@ -24,11 +17,9 @@ public class FlashcardCollection {
         return flashcards;
     }
 
-    // REQUIRES: title is not an empty string
-    // MODIFIES: this
-    // EFFECTS: edits this collection's title to newTitle
-    public void editTitle(String newTitle) {
-        title = newTitle;
+    // EFFECTS: returns size of this flashcard collection
+    public int getSize() {
+        return flashcards.size();
     }
 
     // MODIFIES: this

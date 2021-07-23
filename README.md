@@ -9,11 +9,7 @@ hand-writing their own flashcards.
 
 ### User Stories
 
-- As a user, I want to be able to create a new collection of flashcards and add it to a list of collections
 - As a user, I want to be able to create a new flashcard and add it to a collection of cards
+- As a user, I want to be able to select a flashcard in the collection and view its description or keyword
 - As a user, I want to be able to edit a flashcard's description or keyword
-- As a user, I want to be able to edit a collection's title
-- As a user, I want to be able to view a list of all collection titles
-- As a user, I want to be able to select a flashcard in a collection and view its description or keyword
-- As a user, I want to be able to delete a flashcard from a collection
-- As a user, I want to be able to delete a collection from the list of collections
+- As a user, I want to be able to delete a flashcard from the collection
