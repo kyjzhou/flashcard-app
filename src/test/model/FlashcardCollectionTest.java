@@ -11,12 +11,19 @@ class FlashcardCollectionTest {
 
     @BeforeEach
     public void runBefore() {
-        testCollection = new FlashcardCollection();
+        testCollection = new FlashcardCollection("Physics");
     }
 
     @Test
     public void testConstructor() {
+        assertEquals("Physics", testCollection.getName());
         assertEquals(0, testCollection.getSize());
+    }
+
+    @Test
+    public void testSetName() {
+        testCollection.setName("Math");
+        assertEquals("Math", testCollection.getName());
     }
 
     @Test

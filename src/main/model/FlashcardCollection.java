@@ -1,15 +1,31 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.JsonWritable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 // A collection of flashcards
-public class FlashcardCollection {
-
+public class FlashcardCollection implements JsonWritable {
+    private String name;
     private List<Flashcard> flashcardList;
 
-    public FlashcardCollection() {
+    public FlashcardCollection(String name) {
+        this.name = name;
         flashcardList = new ArrayList<>();
+    }
+
+    // EFFECTS: returns name of this flashcard collection
+    public String getName() {
+        return name;
+    }
+
+    // MODIFIES: THIS
+    // EFFECTS: sets this flashcard collection's name to newName
+    public void setName(String newName) {
+        this.name = newName;
     }
 
     // EFFECTS: returns size of this flashcard collection
@@ -45,4 +61,21 @@ public class FlashcardCollection {
         return false;
     }
 
+    // EFFECTS: returns this flashcard collection as a JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject jsonCollection = new JSONObject();
+        jsonCollection.put("name", name);
+        jsonCollection.put("flashcards", toJsonFlashcards());
+        return jsonCollection;
+    }
+
+    // EFFECTS: returns this collection's list of flashcards as a JSON array
+    private JSONArray toJsonFlashcards() {
+        JSONArray jsonFlashcardList = new JSONArray();
+        for (Flashcard flashcard : flashcardList) {
+            jsonFlashcardList.put(flashcard.toJson());
+        }
+        return jsonFlashcardList;
+    }
 }

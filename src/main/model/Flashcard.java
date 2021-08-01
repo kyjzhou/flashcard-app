@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.JsonWritable;
+
 // A flashcard with a keyword and a description
-public class Flashcard {
+public class Flashcard implements JsonWritable {
 
     private String keyword;
     private String description;
@@ -31,5 +34,14 @@ public class Flashcard {
     // EFFECTS: changes this flashcard's description to newDescription
     public void editDescription(String newDescription) {
         description = newDescription;
+    }
+
+    // EFFECTS: returns this flashcard as a JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject jsonCard = new JSONObject();
+        jsonCard.put("keyword", keyword);
+        jsonCard.put("description", description);
+        return jsonCard;
     }
 }
