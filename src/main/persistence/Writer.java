@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
 // Modelled based on JsonSerializationDemo: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
-// Represents a writer that writes a flashcard collection as JSON data to file
+// Represents a writer that writes a flashcard collection as a JSON object to file
 public class Writer {
     private PrintWriter writer;
     private String destination;
@@ -20,7 +20,7 @@ public class Writer {
     }
 
     // MODIFIES: this
-    // EFFECTS: opens the writer, and if the destination file is not found, throws FileNotFoundException
+    // EFFECTS: opens this writer; throws FileNotFoundException if the destination file cannot be opened
     public void open() throws FileNotFoundException {
         File file = new File(destination);
         writer = new PrintWriter(file);
@@ -35,7 +35,7 @@ public class Writer {
     }
 
     // MODIFIES: this
-    // EFFECTS: closes the writer
+    // EFFECTS: closes this writer
     public void close() {
         writer.close();
     }
