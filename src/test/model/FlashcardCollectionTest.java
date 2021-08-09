@@ -16,14 +16,15 @@ class FlashcardCollectionTest {
 
     @Test
     public void testConstructor() {
-        assertEquals("Physics", testCollection.getName());
+        assertEquals("Physics", testCollection.getTitle());
+        assertEquals(0, testCollection.getFlashcardList().size());
         assertEquals(0, testCollection.getSize());
     }
 
     @Test
-    public void testSetName() {
-        testCollection.setName("Math");
-        assertEquals("Math", testCollection.getName());
+    public void testSetTitle() {
+        testCollection.setTitle("Math");
+        assertEquals("Math", testCollection.getTitle());
     }
 
     @Test

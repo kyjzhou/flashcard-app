@@ -37,7 +37,7 @@ public class ReaderTest {
             writer.close();
 
             FlashcardCollection collectionRead = reader.read();
-            assertEquals("Biology", collectionRead.getName());
+            assertEquals("Biology", collectionRead.getTitle());
             assertEquals(0, collectionRead.getSize());
         } catch (IOException e) {
             fail("Unexpected exception thrown");
@@ -58,7 +58,7 @@ public class ReaderTest {
             writer.close();
 
             FlashcardCollection collectionRead = reader.read();
-            assertEquals("Chemistry", collectionRead.getName());
+            assertEquals("Chemistry", collectionRead.getTitle());
             assertEquals(1, collectionRead.getSize());
             assertEquals("Hydrogen", collectionRead.getFlashcardAtPosition(1).getKeyword());
             assertEquals("First element", collectionRead.getFlashcardAtPosition(1).getDescription());

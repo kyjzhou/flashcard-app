@@ -37,7 +37,7 @@ public class WriterTest {
             writer.close();
 
             reader.read();
-            assertEquals("Math", collection.getName());
+            assertEquals("Math", collection.getTitle());
             assertEquals(0, collection.getSize());
         } catch (IOException e) {
             fail("Unexpected exception caught");
@@ -58,7 +58,7 @@ public class WriterTest {
             writer.close();
 
             FlashcardCollection collectionWritten = reader.read();
-            assertEquals("Physics", collectionWritten.getName());
+            assertEquals("Physics", collectionWritten.getTitle());
             assertEquals(1, collectionWritten.getSize());
             assertEquals("Speed", collectionWritten.getFlashcardAtPosition(1).getKeyword());
             assertEquals("Change in distance", collectionWritten.getFlashcardAtPosition(1).getDescription());

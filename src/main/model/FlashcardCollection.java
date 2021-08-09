@@ -9,23 +9,28 @@ import java.util.List;
 
 // A collection of flashcards
 public class FlashcardCollection implements JsonWritable {
-    private String name;
+    private String title;
     private List<Flashcard> flashcardList;
 
-    public FlashcardCollection(String name) {
-        this.name = name;
+    public FlashcardCollection(String title) {
+        this.title = title;
         flashcardList = new ArrayList<>();
     }
 
-    // EFFECTS: returns name of this flashcard collection
-    public String getName() {
-        return name;
+    // getter
+    public String getTitle() {
+        return title;
     }
 
-    // MODIFIES: THIS
+    // getter
+    public List<Flashcard> getFlashcardList() {
+        return flashcardList;
+    }
+
+    // MODIFIES: this
     // EFFECTS: sets this flashcard collection's name to newName
-    public void setName(String newName) {
-        this.name = newName;
+    public void setTitle(String newName) {
+        this.title = newName;
     }
 
     // EFFECTS: returns size of this flashcard collection
@@ -65,7 +70,7 @@ public class FlashcardCollection implements JsonWritable {
     @Override
     public JSONObject toJson() {
         JSONObject jsonCollection = new JSONObject();
-        jsonCollection.put("name", name);
+        jsonCollection.put("name", title);
         jsonCollection.put("flashcards", toJsonFlashcards());
         return jsonCollection;
     }
