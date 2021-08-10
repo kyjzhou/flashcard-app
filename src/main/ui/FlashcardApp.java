@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-// An app for generating flashcards
+// A console user interface for an app that generates flashcards
 public class FlashcardApp {
     private static final String ADD_CARD_COMMAND = "a";
     private static final String CHOOSE_CARD_COMMAND = "c";

@@ -12,6 +12,7 @@ public class FlashcardCollection implements JsonWritable {
     private String title;
     private List<Flashcard> flashcardList;
 
+    // EFFECTS: constructs flashcard collection with given title
     public FlashcardCollection(String title) {
         this.title = title;
         flashcardList = new ArrayList<>();

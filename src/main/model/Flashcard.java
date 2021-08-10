@@ -9,6 +9,7 @@ public class Flashcard implements JsonWritable {
     private String keyword;
     private String description;
 
+    // EFFECTS: constructs flashcard with given keyword and description
     public Flashcard(String keyword, String description) {
         this.keyword = keyword;
         this.description = description;

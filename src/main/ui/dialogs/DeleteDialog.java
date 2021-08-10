@@ -1,5 +1,6 @@
 package ui.dialogs;
 
+import model.Flashcard;
 import ui.FlashcardGUI;
 
 import javax.swing.*;
@@ -8,36 +9,38 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-// A dialog window for inputting a collection title when loading a flashcard collection
+// A dialog window for confirming to delete a flashcard
 // Modelled after DialogDemoProject from Java Tutorials for using Swing Components
 //         (https://docs.oracle.com/javase/tutorial/uiswing/examples/components/index.html)
-public class LoadDialog extends JDialog implements ActionListener, PropertyChangeListener {
+public class DeleteDialog extends JDialog implements ActionListener, PropertyChangeListener {
     private String inputtedText;
-    private JTextField textField;
     private FlashcardGUI gui;
     private JOptionPane optionPane;
+    private String messageSecondLine;
+    private String messageThirdLine;
 
-    private static final String ENTER_BUTTON_TEXT = "Enter";
+    private static final String OK_BUTTON_TEXT = "OK";
     private static final String CANCEL_BUTTON_TEXT = "Cancel";
-    private static final String MESSAGE = "Enter the collection's title";
+    private static final String MESSAGE_FIRST_LINE = "This flashcard will be deleted";
 
-    // EFFECTS: constructs a load collection dialog window for given GUI
-    public LoadDialog(FlashcardGUI gui) {
+    // EFFECTS: constructs a delete flashcard dialog window for given GUI
+    public DeleteDialog(FlashcardGUI gui) {
         super(gui, true);
         inputtedText = null;
-        textField = new JTextField(10);
         this.gui = gui;
 
-        setTitle("Load a collection");
+        Flashcard selectedCard = gui.getSelectedButton().getFlashcard();
+        messageSecondLine = "Keyword: " + selectedCard.getKeyword();
+        messageThirdLine = "Description: " + selectedCard.getDescription();
+
+        setTitle("Delete flashcard");
         setDefaultCloseOperation(HIDE_ON_CLOSE);
 
-        Object[] components = {MESSAGE, textField};
-        Object[] options = {ENTER_BUTTON_TEXT, CANCEL_BUTTON_TEXT};
+        Object[] components = {MESSAGE_FIRST_LINE, messageSecondLine, messageThirdLine};
+        Object[] options = {OK_BUTTON_TEXT, CANCEL_BUTTON_TEXT};
 
         initializeOptionPane(components, options);
         setContentPane(optionPane);
-
-        textField.addActionListener(this);
         optionPane.addPropertyChangeListener(this);
     }
 
@@ -56,38 +59,24 @@ public class LoadDialog extends JDialog implements ActionListener, PropertyChang
     // EFFECTS: sets this option pane's default value when this dialog is opened
     @Override
     public void actionPerformed(ActionEvent e) {
-        optionPane.setValue(ENTER_BUTTON_TEXT);
+        optionPane.setValue(OK_BUTTON_TEXT);
     }
 
     // MODIFIES: this
-    // EFFECTS: if enter button is clicked:
-    //             - if this dialog's text field is empty, displays prompt asking for non-empty input
-    //                          and closes this dialog
-    //             - otherwise, loads flashcard collection with inputted title to this dialog's gui's collection title
-    //                          and closes this dialog
+    // EFFECTS: if OK button is clicked, deletes a flashcard button from this dialog's gui and closes this dialog,
     //          if cancel button is clicked, only closes this dialog
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         Object value = optionPane.getValue();
 
-        if (value.equals(ENTER_BUTTON_TEXT)) {
-            inputtedText = textField.getText();
-            if (inputtedText.equals("")) {
-                hideDialog();
-                JOptionPane.showMessageDialog(LoadDialog.this, "Please enter a collection title");
-            } else {
-                gui.loadCollection(inputtedText);
-                hideDialog();
-            }
-        } else {
-            hideDialog();
+        if (value.equals(OK_BUTTON_TEXT)) {
+            gui.deleteFlashcardButton();
         }
+        hideDialog();
     }
 
-    // MODIFIES: this
-    // EFFECTS: clears this dialog's text field and hides this dialog
+    // EFFECTS: hides this dialog
     public void hideDialog() {
-        textField.setText(null);
         setVisible(false);
     }
 }
