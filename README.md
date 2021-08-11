@@ -16,3 +16,9 @@ hand-writing their own flashcards.
 - As a user, I want to be able to save my collection of flashcards to file
 - As a user, I want to be able to load my existing collection of flashcards from file
 
+### Phase 4: Task 2
+
+I chose to implement a type hierarchy in the dialogs package (which is inside the ui package). Four subclasses 
+(AddDialog, DeleteDialog, EditTitleDialog, and LoadDialog) extend the Dialog abstract class and override its 
+hideDialog abstract method.
+
