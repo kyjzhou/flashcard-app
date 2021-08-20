@@ -1,6 +1,4 @@
-# CPSC 210 Personal Project
-
-## Flashcard app
+# Flashcard app - A school project
 
 This app can be used by students to generate flashcards that test one's knowledge of course material. As a student
 myself, I find flashcards to be an effective tool to have when reviewing course material, especially when preparing
